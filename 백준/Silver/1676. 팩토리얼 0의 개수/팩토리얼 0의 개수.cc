@@ -4,18 +4,17 @@
 
 using namespace std;
 
+
 int main() {
     int n;
     cin >> n;
     
-    int five = 0;
-    for(int i=5;i<=n;i*=5){
-        for(int j=i;j<=n;j+=i){
-            five+=1;
-        }
+    int ans=0;
+    for(int i=5;n/i>=1;i*=5){
+        ans+=n/i;
     }
     
-    cout << five;
-    
+    cout << ans;
+
     return 0;
 }
