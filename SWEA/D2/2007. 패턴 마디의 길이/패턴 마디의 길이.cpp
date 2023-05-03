@@ -15,19 +15,18 @@ int main(int argc, char** argv)
         string s;
         cin >> s;
         
-        int len = 1;
-        int start_point = 1;
-        for(int i=1;i<s.length();i++){
-            if(s[i] == s[len-1]){
-             	len++;
-            }
-            else {
-                start_point = i;
-                len = 1;
-            }
-         }
+       	string tmp; tmp += s[0];
         
-        cout << "#" << test_case << " " << start_point+1 << endl;
+        for(int i=1;i<30;i++){
+            if(tmp == s.substr(i,tmp.length())){
+                cout << "#" << test_case << " " << tmp.length() << "\n";
+                break;
+            }
+            else{
+                tmp+=s[i];
+            }
+        }
+        
 	}
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
