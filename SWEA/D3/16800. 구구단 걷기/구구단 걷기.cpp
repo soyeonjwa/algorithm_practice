@@ -67,10 +67,9 @@ int main(int argc, char** argv)
         long long ans = 0;
        	long long sq = floor(sqrt(n*1.0));
         
-        for(long long i=sq; i>0; i--){
+        for(long long i=1;i<=sq ; i++){
             if(n%i == 0){
                 ans = i+n/i;
-                break;
             }
         }
         
