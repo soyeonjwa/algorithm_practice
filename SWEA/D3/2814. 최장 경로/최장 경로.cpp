@@ -39,8 +39,9 @@
 using namespace std;
 
 int MAX = INT_MIN;
+int visited[11];
 
-void dfs(vector<vector<int> > graph, int x, int distance, int visited[]){    
+void dfs(vector<vector<int> > graph, int x, int distance){    
     visited[x] = 1;
     distance++;
     MAX = max(MAX, distance);
@@ -48,8 +49,7 @@ void dfs(vector<vector<int> > graph, int x, int distance, int visited[]){
     for(int i=0;i<graph[x].size();i++){
         int nextX = graph[x][i];
         if(visited[nextX]==0) {
-            visited[nextX] = 1;
-            dfs(graph, nextX, distance,visited);
+            dfs(graph, nextX, distance);
         	visited[nextX] = 0;
         }
     }
@@ -90,9 +90,9 @@ int main(int argc, char** argv)
         }
         
         for(int i=1;i<=n;i++){
-            int visited[n+1] = {0,};
+            for(int i=1;i<=n;i++) visited[i] = 0;
             
-            dfs(graph, i, 0, visited);
+            dfs(graph, i, 0);
         }
         
         
