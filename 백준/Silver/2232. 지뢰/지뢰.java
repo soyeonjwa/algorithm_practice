@@ -14,7 +14,7 @@ public class Main {
 
     static int N;
     static int[] mine;
-    static ArrayList<Integer> ans = new ArrayList<>();
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,24 +33,20 @@ public class Main {
         }
 
         if(mine[1]<=mine[0]){
-            ans.add(1);
-        }
-
-        if(mine[N-1]>=mine[N-2]){
-            ans.add(N);
+            sb.append(1).append("\n");
         }
 
         for(int i=1;i<N-1;i++){
             if(mine[i-1]<=mine[i] && mine[i]>=mine[i+1]){
-                ans.add(i+1);
+                sb.append(i+1).append("\n");
             }
         }
-
-        Collections.sort(ans);
-
-        for(int x : ans){
-            System.out.println(x);
+        
+        if(mine[N-1]>=mine[N-2]){
+            sb.append(N).append("\n");
         }
+
+        System.out.println(sb);
     }
 
 }
