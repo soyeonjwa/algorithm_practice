@@ -100,7 +100,7 @@ public class Main {
                 answer[likeStr.get(i).index]++;
                 flag = true;
             } else if (flag) {
-                return;
+                break;
             }
         }
         if(s.length()>=5) return;
