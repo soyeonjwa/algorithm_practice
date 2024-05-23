@@ -2,6 +2,10 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -12,13 +16,28 @@ public class Main {
 
     static int n,m,k;
     static char[][] blocks;
-    static String[] likeStr;
+    static ArrayList<node> likeStr = new ArrayList<>();
     static int[] answer;
 
     static int[][] directions = {
         {-1,0},{1,0},{0,-1},{0,1},
         {-1,-1},{-1,1},{1,-1},{1,1}
     };
+
+    static class node implements Comparable<node> {
+        int index;
+        String s;
+
+        node(String s ,int index){
+            this.index = index;
+            this.s = s;
+        }
+
+        @Override
+        public int compareTo(node o) {
+            return this.s.compareTo(o.s);
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,7 +48,6 @@ public class Main {
         k = Integer.parseInt(st.nextToken());
 
         blocks = new char[n][m];
-        likeStr = new String[k];
         answer = new int[k];
 
         for(int i=0;i<n;i++){
@@ -41,8 +59,9 @@ public class Main {
         }
 
         for(int i=0;i<k;i++){
-            likeStr[i] = br.readLine();
+            likeStr.add(new node(br.readLine(), i));
         }
+        Collections.sort(likeStr);
 
 
         for(int i=0;i<n;i++){
@@ -74,9 +93,13 @@ public class Main {
 
 
     static void dfs(int x, int y, StringBuilder s){
-        for(int i=0;i<likeStr.length;i++){
-            if(likeStr[i].contentEquals(s)){
-                answer[i]++;
+        boolean flag = false;
+
+        for(int i=0;i<likeStr.size();i++){
+            if(likeStr.get(i).s.contentEquals(s)){
+                answer[likeStr.get(i).index]++;
+                flag = true;
+            } else if (flag) {
                 return;
             }
         }
