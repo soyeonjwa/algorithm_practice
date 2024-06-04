@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -13,49 +13,32 @@ public class Main {
         int strLen = Integer.parseInt(br.readLine());
         String str = br.readLine();
 
-        String pattern = "";
-        for(int i=0;i<N;i++){
-            pattern += "IO";
-        }
-        pattern += "I";
-
-        int ans = 0 ;
-        int[][] arr = new int[2*N +1][strLen];
-        for(int j=0;j<strLen;j++){
-            if(str.charAt(j)=='I'){
-                arr[0][j] = 1;
-            }
-        }
-        for(int i=0;i<2*N+1;i++){
-            if(pattern.charAt(i)==str.charAt(0)){
-                arr[i][0] = 1;
-            }
-        }
-
-        for(int i=1;i<2*N+1;i++){
-            for(int j=1;j<strLen;j++){
-                if(pattern.charAt(i) == str.charAt(j)){
-                    if(str.charAt(j) == 'O'){
-                        arr[i][j] = arr[i-1][j-1] + 1;
-                    }
-                    else{
-                        if(arr[i-1][j-1] > 1){
-                            arr[i][j] = arr[i-1][j-1] +1;
-                        }
-                        else{
-                            arr[i][j] = 1;
-                        }
-                    }
+        char preStr = ' ';
+        int cnt = 0;
+        int ans =0;
+        for(int i=0;i<strLen;i++){
+            if(str.charAt(i)=='I'){
+                if(preStr!='O'){
+                    cnt = 1;
+                    preStr = 'I';
+                    continue;
                 }
-                else{
-                    arr[i][j] = 0;
-                }
-            }
-        }
 
-        for(int j=0;j<strLen;j++){
-            if(arr[2*N][j] == 2*N+1){
-                ans++;
+                cnt++;
+                preStr = 'I';
+            }
+            else{
+                if(preStr != 'I'){
+                    cnt = 0;
+                    preStr = ' ';
+                    continue;
+                }
+
+                cnt ++;
+                preStr = 'O';
+            }
+            if(cnt >= 2*N + 1 && cnt%2 == 1){
+                ans ++;
             }
         }
 
